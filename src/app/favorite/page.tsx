@@ -3,9 +3,11 @@ import prisma from '@/static/prisma'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { unstable_noStore as noStore } from "next/cache";
+
 
 const getData =async (id:string)=>{
-
+  noStore()
  return   await prisma.favorite.findMany({
     where:{
       userId:id

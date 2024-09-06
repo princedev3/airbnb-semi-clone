@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { deleteHome, getReservation } from '@/static/actions'
 import DateButton from '@/static/DateButton'
 import { Trash } from 'lucide-react'
+import { unstable_noStore as noStore } from "next/cache";
 
 
 const HomePage = async({params}:{params:{id:string}}) => {
@@ -24,6 +25,7 @@ const HomePage = async({params}:{params:{id:string}}) => {
     if(!user.id){
       redirect("/")
     }
+    noStore()
     const data = await prisma.home.findUnique({
         where:{
            id:params.id

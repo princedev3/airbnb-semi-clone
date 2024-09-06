@@ -3,6 +3,7 @@ import prisma from '@/static/prisma'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { unstable_noStore as noStore } from "next/cache";
 
 export default  async function Home () {
   const {getUser}=getKindeServerSession()
@@ -11,7 +12,7 @@ export default  async function Home () {
   if(!user?.id ){
     redirect("/")
   }
-
+  noStore() 
   const data = await prisma.home.findMany({
     where:{
       userId:user?.id

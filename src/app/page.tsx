@@ -5,6 +5,7 @@ import prisma from "@/static/prisma";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import { Suspense } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Home({
   searchParams,
@@ -14,7 +15,7 @@ export default async function Home({
   
   const {getUser}=getKindeServerSession()
   const user = await getUser()
-
+  noStore()
   const data = await prisma.home.findMany({
     where: {
       addCategory: true,

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
 
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "@/static/prisma";
@@ -6,6 +7,7 @@ import prisma from "@/static/prisma";
 
 export const GET= async(req:NextRequest)=>{
     try {
+        noStore()
         const {getUser} = getKindeServerSession();
 const user = await getUser()
 if(!user || !user.id||  user===null){
